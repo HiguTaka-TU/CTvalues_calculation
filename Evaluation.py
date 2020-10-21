@@ -31,3 +31,4 @@ def RMSE_fig(csv_name):
 	filename='./RMSE.png'
 	plt.savefig(filename)
 	plt.close()
+print(1)
