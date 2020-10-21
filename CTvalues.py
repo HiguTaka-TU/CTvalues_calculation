@@ -325,9 +325,3 @@ for i in range(1,7501):
 		writer=csv.writer(f)
 		writer.writerow([abs(CTAir),abs(CT2),abs(CT8),abs(CT11),abs(CT16),abs(CT15),abs(CT1),abs(CT10),abs(CT6),abs(CT4),abs(CT7),abs(CT14),abs(CT12),abs(CT9)])
 	print(i)
-	"""
-	x=[CTAir,CT2,CT8,CT11,CT16,CT15,CT1,CT10,CT6,CT4,CT7,CT14,CT12,CT9]
-	y=[0.002,0.28,0.40,0.942,0.977,1.0,1.018,1.053,1.097,1.143,1.154,1.335,1.56,1.825]
-	plt.plot(x,y,marker="o",color="red",linestyle = "--")
-	plt.show()
-	"""
