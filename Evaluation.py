@@ -31,4 +31,19 @@ def RMSE_fig(csv_name):
 	filename='./RMSE.png'
 	plt.savefig(filename)
 	plt.close()
-print(1)
+
+def SNR(f):
+        mu=[]
+        sum_mu=0
+        sum_count=0 
+        for iy in range(height):
+                y =-iy+height/2-0.5
+                for ix in range(width):
+                        x=ix-width/2+0.5
+                        d=x*x+y*y 
+    
+                        if d<=25:
+                                mu.append(f[ix+iy*width])
+        mean=np.mean(mu)
+        std=np.std(mu)
+        SNR=10*math.log10(mean/std)
