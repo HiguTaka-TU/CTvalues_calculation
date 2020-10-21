@@ -47,3 +47,4 @@ def SNR(f):
         mean=np.mean(mu)
         std=np.std(mu)
         SNR=10*math.log10(mean/std)
+	SNR2=mean/std
