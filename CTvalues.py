@@ -3,28 +3,11 @@ import math
 import matplotlib.pyplot as plt
 import csv
 
-CT1=0
-CT2=0
-CT3=0
-CT4=0
-CT5=0
-CT6=0
-CT7=0
-CT8=0
-CT9=0
-CT10=0
-CT11=0
-CT12=0
-CT13=0
-CT14=0
-CT15=0
-CT16=0
-CTAir=0
 
 width=512
 height=512
 
-def CTnumber():
+def CTvalues():
 	PI=math.pi
 	r0=55
 	r00=105
@@ -270,58 +253,36 @@ def CTnumber():
         ave16=sum16mu/sum16count
         aveAir=sumAirmu/sumAircount
 
-        global CT1
 	CT1=(ave1-ave15)/ave15*1000#Solid water
-        global CT2
 	CT2=(ave2-ave15)/ave15*1000#LN300
-        global CT3
 	CT3=(ave3-ave15)/ave15*1000#Solid water
-        global CT4
 	CT4=(ave4-ave15)/ave15*1000#IB3
-	global CT5
         CT5=(ave5-ave15)/ave15*1000#Solid water
-	global CT6
         CT6=(ave6-ave15)/ave15*1000#LV1
-	global CT7
         CT7=(ave7-ave15)/ave15*1000#B200
-	global CT8
         CT8=(ave8-ave15)/ave15*1000#LN450
-	global CT9
         CT9=(ave9-ave15)/ave15*1000#SB3-Cortical
-	global CT10
         CT10=(ave10-ave15)/ave15*1000#SR2-Brain
-	global CT11
         CT11=(ave11-ave15)/ave15*1000#AP6
-	global CT12
         CT12=(ave12-ave15)/ave15*1000#CB2-50%
-	global CT13
         CT13=(ave13-ave15)/ave15*1000#Solid water
-	global CT14
         CT14=(ave14-ave15)/ave15*1000#CB2-30%
-	global CT15
         CT15=(ave15-ave15)/ave15*1000#Water
-	global CT16
         CT16=(ave16-ave15)/ave15*1000#BR12
-	global CTAir
         CTAir=(aveAir-ave15)/ave15*1000#Air
 
-"""
-rawpath="/mnt/nfs_S65/Takayuki/package_TotalDensityEstimation/Ver.2_FBP_FromVirtualProjection/Reconstruction/FBP_virtual_projection_512x512_gammex1.raw" 
-fd=open(rawpath,'rb')
-f=np.fromfile(fd,dtype=np.float32,count=height*width)
-#img=f.reshape((height,width))
-CTnumber()
-"""
+	return CTAir,CT2,CT8,CT11,CT16,CT15,CT1,CT10,CT6,CT4,CT7,CT14,CT12,CT9
 
 
-for i in range(1,7501):
+for i in range(1,2):
 #for i in range(1,2):
-	rawpath="/mnt/nfs_S65/Takayuki/package_TotalDensityEstimation/Ver.2_FBP_FromVirtualProjection/Reconstruction/FBP_virtual_projection_512x512_gammex%d.raw" % i 
+	rawpath="/mnt/nfs_S65/Takayuki/package_TotalDensityEstimation/Recon/Recon7500/FBP_virtual_projection_512x512_gammex%d.raw" % i 
 	fd=open(rawpath,'rb')
 	f=np.fromfile(fd,dtype=np.float32,count=height*width)
 	#img=f.reshape((height,width))
-	CTnumber()
-	with open('CTnumber_abs.csv','a') as f:
+	CTvalues=CTvalues()
+	with open('CTvalues_abs.csv','a') as f:
 		writer=csv.writer(f)
-		writer.writerow([abs(CTAir),abs(CT2),abs(CT8),abs(CT11),abs(CT16),abs(CT15),abs(CT1),abs(CT10),abs(CT6),abs(CT4),abs(CT7),abs(CT14),abs(CT12),abs(CT9)])
+		#writer.writerow([CTAir,CT2,CT8,CT11,CT16,CT15,CT1,CT10,CT6,CT4,CT7,CT14,CT12,CT9])
+		writer.writerow(CTvalues)
 	print(i)
