@@ -164,4 +164,3 @@ for i in range(1,2):
 	with open('CTvalues.csv','a') as f:
 		writer=csv.writer(f)
 		writer.writerow(CTvalues)
-	print(i)
