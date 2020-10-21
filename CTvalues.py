@@ -155,7 +155,6 @@ width=512
 height=512
 
 for i in range(1,2):
-#for i in range(1,2):
 	rawpath="/mnt/nfs_S65/Takayuki/package_TotalDensityEstimation/Recon/Recon7500/FBP_virtual_projection_512x512_gammex%d.raw" % i 
 	fd=open(rawpath,'rb')
 	f=np.fromfile(fd,dtype=np.float32,count=height*width)
@@ -164,6 +163,5 @@ for i in range(1,2):
 	fd.close()
 	with open('CTvalues_abs.csv','a') as f:
 		writer=csv.writer(f)
-		#writer.writerow([CTAir,CT2,CT8,CT11,CT16,CT15,CT1,CT10,CT6,CT4,CT7,CT14,CT12,CT9])
 		writer.writerow(CTvalues)
 	print(i)
