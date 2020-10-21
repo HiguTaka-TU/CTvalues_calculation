@@ -161,7 +161,7 @@ for i in range(1,2):
 	#img=f.reshape((height,width))
 	CTvalues=CTvalues()
 	fd.close()
-	with open('CTvalues_abs.csv','a') as f:
+	with open('CTvalues.csv','a') as f:
 		writer=csv.writer(f)
 		writer.writerow(CTvalues)
 	print(i)
