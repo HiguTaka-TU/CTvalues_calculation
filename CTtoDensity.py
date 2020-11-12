@@ -1,13 +1,17 @@
+# -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-def CTtoDensityCurve_SB3_highest(csv_name):
-	f1=np.loadtxt(csv_name,delimiter=',')
-	CT_number=np.array(f1)
-
+def definition_density()
 	density=[0.002,0.28,0.40,0.942,0.977,1.0,1.018,1.053,1.097,1.143,1.154,1.335,1.56,1.825]
-	#global CT_max
+	density_actual=[0,0.3,0.48,0.949,0.984,1,1.016,1.018,1.051,1.09,1.138,1.146,1.333,1.56,1.822]
+	
+	return density,density
+
+def CT_ED_SB3_highest(data):
+	CT_values=np.array(data)
+
 	CT_max=0
 	fig = plt.figure()
 	for i in range(0,570):
@@ -49,7 +53,6 @@ def CTtoDensity_actual_fig():
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
 	"""
-	density_actual=[0,0.3,0.48,0.949,0.984,1,1.016,1.018,1.051,1.09,1.138,1.146,1.333,1.56,1.822]
 
 	B3F =[-1006.4,-726.6,-560.5,-84.2,-40.3,-1.6,-0.8,-2.5,21,63.9,203.8,219.1,598.3,1058.6,1581.3]
 	QQ = [-1006.7,-704.3,-542.7,-94.4,-51.5,-13.3,-15.8,-12.8,12.2,58.7,203,210.9,491.7,895.6,1338.3]
