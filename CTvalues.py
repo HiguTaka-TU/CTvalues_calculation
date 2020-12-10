@@ -106,7 +106,7 @@ def main():
 		writer=csv.writer(f)
 		writer.writerow(ctvalues13)
 
-	#return ctvalues.average[4]
+	#return ctvalues.average[4] #CT値に変換するときのみ使用
 
 def convert_CTvalue(f,fd,mu_water):
 	for j in range(height*width):
@@ -125,5 +125,5 @@ if __name__=="__main__":
 		f,fd=open_CTimages(rawpath,height,width)
 		main()
 		print(i)
-		#mu_water=main()
+		#mu_water=main() #CT値に変換するときのみ使用
 		fd.close()
