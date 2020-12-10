@@ -65,7 +65,7 @@ class CTvalues():
 
 		return self.ct[13],self.ct[8],self.ct[9],self.ct[0],self.ct[3],self.ct[4],self.ct[7],self.ct[1],self.ct[11],self.ct[12],self.ct[10],self.ct[5],self.ct[6],self.ct[2]
 
-def open_CTimages(rawpath):
+def open_CTimages(rawpath,height,width):
 	fd=open(rawpath,'rb')
 	f=np.fromfile(fd,dtype=np.float32,count=height*width)
 	return f,fd
@@ -106,12 +106,24 @@ def main():
 		writer=csv.writer(f)
 		writer.writerow(ctvalues13)
 
+	#return ctvalues.average[4]
 
+def convert_CTvalue(f,fd,mu_water):
+	for j in range(height*width):
+		f[j]=(f[j]-mu_water)/mu_water*1000
+	file_name_out='check_CTimages/CT_images_%d.raw' % i
+	f.tofile(file_name_out)
+	
+	
 
 if __name__=="__main__":
 	width=height=512
-	rawpath="/mnt/nfs_S65/Takayuki/package_TotalDensityEstimation/Recon/Recon7500/FBP_virtual_projection_512x512_gammex1.raw" 
-	#img=f.reshape((height,width))
-	f,fd=open_CTimages(rawpath)
-	main()
-	fd.close()
+	for i in range(10000):
+		i+=1
+		rawpath='/workspace/docker/Ver.2_FBP_FromVirtualProjection/Recon_10000/FBP_virtual_projection_512x512_gammex%d.raw' % i
+		#img=f.reshape((height,width))
+		f,fd=open_CTimages(rawpath,height,width)
+		main()
+		print(i)
+		#mu_water=main()
+		fd.close()
