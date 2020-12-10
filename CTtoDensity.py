@@ -3,18 +3,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-def definition_density()
+def definition_density():
 	density=[0.002,0.28,0.40,0.942,0.977,1.0,1.018,1.053,1.097,1.143,1.154,1.335,1.56,1.825]
-	density_actual=[0,0.3,0.48,0.949,0.984,1,1.016,1.018,1.051,1.09,1.138,1.146,1.333,1.56,1.822]
+	density_actual=[0,0.3,0.48,0.949,0.984,1,1.018,1.051,1.09,1.138,1.146,1.333,1.56,1.822]
 	
-	return density,density
+	return density,density_actual
 
-def actual_CTvalues()
+def actual_CTvalues():
 	B3F =[-1006.4,-726.6,-560.5,-84.2,-40.3,-1.6,-2.5,21,63.9,203.8,219.1,598.3,1058.6,1581.3]
 	QQ = [-1006.7,-704.3,-542.7,-94.4,-51.5,-13.3,-12.8,12.2,58.7,203,210.9,491.7,895.6,1338.3]
 	New =[-1006.7,-706.9,-533,-94.4,-44.5,-3.5,-3.7,18.4,68.9,218.7,230.1,428,795.1,1246.6]
 	
 	return B3F,QQ,New
+
 
 def CT_ED_SB3_highest(data):
 	CT_values=np.array(data)
@@ -45,19 +46,18 @@ def CT_ED_nearest(data):
 
 	return np.argmin(dif_B3F),np.argmin(dif_QQ),np.argmin(dif_New)
 
-def CTtoDensity_actual_fig():
-	"""
+#軸をずらすなどする
+def graph_setting():
 	ax = fig.add_subplot(111)
 	
 	ax.spines['left'].set_position(('data',0))
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
-	"""
 
-	
-	#fig=plt.figure()
-	
 
+
+#実測のCTtoEDをそのまま表示(線形補間なし)
+def CTtoDensity_actual_fig(B3F,QQ,New,density_actual):
 	plt.scatter(B3F,density_actual,marker="^",s=10,color='blue',label='B3F')
 	plt.scatter(QQ,density_actual,marker="^",s=10,color='red',label='QQ')
 	plt.scatter(New,density_actual,marker="^",s=10,color='green',label='New')
@@ -68,13 +68,8 @@ def CTtoDensity_actual_fig():
 	#plt.savefig(filename)
 	#plt.close()
 
-def CTtoDensity_fig(csv_name):
-	ax = fig.add_subplot(111)
-	
-	ax.spines['left'].set_position(('data',0))
-	ax.spines['right'].set_visible(False)
-	ax.spines['top'].set_visible(False)
-	
+#シミュレーションのCTtoEDを表示
+def CTtoDensity_fig(csv_name,density):
 	f1=np.loadtxt(csv_name,delimiter=',')
 	CT_number=np.array(f1)
 	
@@ -84,21 +79,16 @@ def CTtoDensity_fig(csv_name):
 			plt.scatter(CT_number[i,:],density,marker="^",s=10,alpha=0.5,color='Cyan',label='Dataset')
 		else:
 			plt.scatter(CT_number[i,:],density,marker="^",s=10,alpha=0.5,color='Cyan')
-	
-def interpolation_fig(data):
-	"""
-	ax = fig.add_subplot(111)
-	
-	ax.spines['left'].set_position(('data',0))
-	ax.spines['right'].set_visible(False)
-	ax.spines['top'].set_visible(False)
-	"""
+
+#線形補間を行なったものを図に表示	
+def interpolation_fig(data,density):
 	CT_number=np.array(data)
+	
 	plt.scatter(CT_number[0,:],density,marker="^",s=10,color='blue',label='B3F')
 	plt.scatter(CT_number[1,:],density,marker="^",s=10,color='red',label='QQ')
 	plt.scatter(CT_number[2,:],density,marker="^",s=10,color='green',label='New')
 	
-
+#線形補間を行う
 def interpolation():
 	delta_x_B3F=np.empty(len(density)-1)
 	delta_x_QQ=np.empty(len(density)-1)
@@ -179,16 +169,17 @@ def feature_fig(csv_name,i):
 	plt.close()
 		
 
-"""
+
 fig = plt.figure()
-CTtoDensity_fig('CTnumber7500.csv')
-CTtoDensity_Interpolation_fig('Interpolation.csv')
-#CTtoDensity_actual_fig()
+density,density_actual=definition_density()
+graph_setting()
+CTtoDensity_fig('CTvalues_csv/dataset/CTvalues_10000.csv',density)
+#CTvalues_interpolation=np.loadtxt('Interpolation.csv',delimiter=',')
+#interpolation_fig(CTvalues_interpolation,density)
+B3F,QQ,New=actual_CTvalues()
+CTtoDensity_actual_fig(B3F,QQ,New,density_actual)
 plt.title('CTtoDensity Curve')
 plt.legend(loc='lower right')        
 filename='./CTtoDensity.png'
 plt.savefig(filename)
 plt.close()
-"""
-i=0
-feature_fig('CTnumber7500.csv',i)
