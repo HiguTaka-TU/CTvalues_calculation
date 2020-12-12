@@ -70,6 +70,11 @@ def open_CTimages(rawpath,height,width):
 	f=np.fromfile(fd,dtype=np.float32,count=height*width)
 	return f,fd
 
+def convert_CTvalue(f,fd,mu_water,output_name):
+	for j in range(height*width):
+		f[j]=(f[j]-mu_water)/mu_water*1000
+
+	f.tofile(output_name)
 
 def main():	
 	#インサートの番号を入力
@@ -102,14 +107,6 @@ def main():
 	ctvalues14=ctvalues.calc_ctvalues()
 
 	return ctvalues.average[4],ctvalues14
-
-def convert_CTvalue(f,fd,mu_water,output_name):
-	for j in range(height*width):
-		f[j]=(f[j]-mu_water)/mu_water*1000
-
-	f.tofile(output_name)
-	
-	
 
 if __name__=="__main__":
 	width=height=512
