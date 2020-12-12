@@ -99,31 +99,38 @@ def main():
 	ctvalues.calc_sum_and_count()
 
 	#各インサートのCT値を計算
-	ctvalues13=ctvalues.calc_ctvalues()
+	ctvalues14=ctvalues.calc_ctvalues()
 
+	return ctvalues.average[4],ctvalues14
 
-	with open('CTvalues.csv','a') as f:
-		writer=csv.writer(f)
-		writer.writerow(ctvalues13)
-
-	#return ctvalues.average[4] #CT値に変換するときのみ使用
-
-def convert_CTvalue(f,fd,mu_water):
+def convert_CTvalue(f,fd,mu_water,output_name):
 	for j in range(height*width):
 		f[j]=(f[j]-mu_water)/mu_water*1000
-	file_name_out='check_CTimages/CT_images_%d.raw' % i
-	f.tofile(file_name_out)
+
+	f.tofile(output_name)
 	
 	
 
 if __name__=="__main__":
 	width=height=512
-	for i in range(10000):
-		i+=1
-		rawpath='/workspace/docker/Ver.2_FBP_FromVirtualProjection/Recon_10000/FBP_virtual_projection_512x512_gammex%d.raw' % i
-		#img=f.reshape((height,width))
+	data_size=10000
+	csv_outname='CTvalues_%d.csv' % data_size
+
+	#CT画像に変換して保存したいときに'True'をセット
+	convert='True'
+
+	for i in range(data_size):
+		i=i+1
+		rawpath='./Recon_10000/FBP_virtual_projection_512x512_gammex%d.raw' % i
+		
 		f,fd=open_CTimages(rawpath,height,width)
-		main()
-		print(i)
-		#mu_water=main() #CT値に変換するときのみ使用
+		mu_water,ctvalues14=main()
+		
+		with open(csv_outname,'a') as file_csv:
+				writer=csv.writer(file_csv)
+				writer.writerow(ctvalues14)
+		
+		if convert=='True':
+			output_name='CTimages/CT_images%d.raw' % i
+			convert_CTvalue(f,fd,mu_water,output_name)
 		fd.close()
