@@ -27,8 +27,6 @@ def graph_setting():
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
 
-
-
 #実測のCTtoEDをそのまま表示(線形補間なし)
 def CTtoDensity_actual_fig(B3F,QQ,New,kV_120,density_actual):
 	plt.scatter(B3F,density_actual,marker="^",s=10,color='blue',label='B3F')
@@ -38,15 +36,11 @@ def CTtoDensity_actual_fig(B3F,QQ,New,kV_120,density_actual):
 	
 	plt.title('CTtoDensity Curve')
 	plt.legend(loc='lower right')        
-	#filename='./CTtoDensity_actual.png'
-	#plt.savefig(filename)
-	#plt.close()
 
 #シミュレーションのCTtoEDを表示
 def CTtoDensity_fig(csv_name,density):
-	f1=np.loadtxt(csv_name,delimiter=',')
-	CT_number=np.array(f1)
-	
+	CT_values=np.loadtxt(csv_name,delimiter=',')
+	CT_values=np.array(CT_values)
 	
 	for i in range(CT_number.shape[0]):
 		if i==1:
@@ -56,12 +50,12 @@ def CTtoDensity_fig(csv_name,density):
 
 #線形補間を行なったものを図に表示	
 def interpolation_fig(data,density):
-	CT_number=np.array(data)
+	CT_values=np.array(data)
 	
-	plt.scatter(CT_number[0,:],density,marker="^",s=10,color='blue',label='B3F')
-	plt.scatter(CT_number[1,:],density,marker="^",s=10,color='red',label='QQ')
-	plt.scatter(CT_number[2,:],density,marker="^",s=10,color='green',label='New')
-	plt.scatter(CT_number[3,:],density,marker="^",s=10,color='orange',label='120kV')
+	plt.scatter(CT_values[0,:],density,marker="^",s=10,color='blue',label='B3F')
+	plt.scatter(CT_values[1,:],density,marker="^",s=10,color='red',label='QQ')
+	plt.scatter(CT_values[2,:],density,marker="^",s=10,color='green',label='New')
+	plt.scatter(CT_values[3,:],density,marker="^",s=10,color='orange',label='120kV')
 	
 #線形補間を行う
 def interpolation():
