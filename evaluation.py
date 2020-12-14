@@ -13,7 +13,7 @@ def evaluation_value_fig(save_name,title,data):
 	fig = plt.figure()
 	x=np.arange(1500)
 	plt.xlim([1,1500])
-	plt.ylim([0,0.005])
+	plt.ylim([0,0.002])
 	plt.scatter(x,value,c='blue',marker='^',s=50,alpha=0.7,linewidths='0')
 	plt.title(title)
 	plt.xlabel('testNo.')
@@ -68,21 +68,28 @@ def SNR_meanenregy_fig(SNR,mean_energy,noise):
 	
 
 if __name__=="__main__":
+	"""
 	width=height=512
-	file_number=570
+	file_number=10000
 	SNR_all=[]
 	for i in range(file_number):
+		print(i)
 		calc_SNR=Calc_SNR(width,height)
 		i=i+1
-		rawpath="/workspace/Ver.2_FBP_FromVirtualProjection/Recon_noise0.00001/FBP_virtual_projection_512x512_gammex%d.raw" % i
+		rawpath="/workspace/docker/Ver.2_FBP_FromVirtualProjection/Recon_10000/FBP_virtual_projection_512x512_gammex%d.raw" % i
 		f,fd=CTvalues.open_CTimages(rawpath,width,height)
 		calc_SNR.get_center_pixels(f)
 		calc_SNR.calc_mean_std()
 		SNR=calc_SNR.calc_SNR()
 		SNR_all.append(SNR)
 	
-	np.savetxt('SNR_noise/check/noise0.00001.csv',SNR_all,fmt='%.6f')
+	np.savetxt('SNR_noise/dataset/10000.csv',SNR_all,fmt='%.6f')
+	"""	
+
 	
+
+
+
 	"""
 	#SNRの計算を行い、ファイルに保存
 	SNR=[]
@@ -97,29 +104,25 @@ if __name__=="__main__":
 		fd.close()
 	np.savetxt('SNR_noise/check/noise0.00001.csv',SNR,fmt='%.6f')
 	"""
-	"""
+	
+	
+	#rmseの図示を行う
 	rmse=np.loadtxt('../DNN/rmse/rmse_10000.csv')
 	evaluation_value_fig('rmse_10000.png','rmse',rmse)	
-	"""	
-
+	
 	"""
-	#ノイズごとのSNRをグラフにする
-	SNR1=np.loadtxt('SNR_noise/check/noise0.0001.csv',delimiter=',')
-	SNR2=np.loadtxt('SNR_noise/check/noise0.00005.csv',delimiter=',')
-	SNR3=np.loadtxt('SNR_noise/check/noise0.00001.csv',delimiter=',')
-	
+	fig=plt.figure()	
+	SNR1=np.loadtxt('SNR_noise/dataset/10000.csv',delimiter=' ')
+	x=np.arange(1,10001)
+	plt.scatter(x,SNR1,marker='^',s=10)
+	plt.xlim([1,10000])
 
-	mean_energy=np.loadtxt('../spectrum/mean_energy_file/check/check_mean_energy.csv',delimiter=',')
+	plt.xlabel('dataNo.')
+	plt.ylabel('SNR')
 
-	fig=plt.figure()
-	
-	SNR_meanenregy_fig(SNR1,mean_energy,0.0001)
-	SNR_meanenregy_fig(SNR2,mean_energy,0.00005)
-	SNR_meanenregy_fig(SNR3,mean_energy,0.00001)
-	
-	plt.title('SNR-MeanEnergy')
-	plt.legend(loc='upper left')
-	filename='SNR-MeanEnergy_Noise.png'
+	plt.title('SNR')
+	filename='SNR_10000.png'
 	plt.savefig(filename)
 	plt.close()
-	"""		
+	"""
+
