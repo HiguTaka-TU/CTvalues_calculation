@@ -40,6 +40,20 @@ class Calc_SNR():
 		
 		return SNR
 
+def SNR_fig(file_number,SNR_all,fig_name):	
+	x=np.arange(1,file_number+1)
+
+	plt.scatter(x,SNR_all,marker='^',s=10)
+	
+	plt.xlim([1,file_number])
+
+	plt.xlabel('dataNo.')
+	plt.ylabel('SNR')
+
+	plt.title('SNR')
+	
+	plt.savefig(fig_name)
+
 if __name__=="__main__":
 	width=height=512
 	file_number=10000
@@ -78,19 +92,8 @@ if __name__=="__main__":
 	
 	#ここからはSNRをプロットして保存
 	fig=plt.figure()	
-	
-	x=np.arange(1,file_number+1)
 
-	plt.scatter(x,SNR_all,marker='^',s=10)
-	
-	plt.xlim([1,file_number])
+	SNR_fig(file_number,SNR_all,fig_name)
 
-	plt.xlabel('dataNo.')
-	plt.ylabel('SNR')
-
-	plt.title('SNR')
-	
-	plt.savefig(fig_name)
-	
 	plt.close()
 
