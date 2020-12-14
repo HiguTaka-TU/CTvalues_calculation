@@ -114,11 +114,11 @@ if __name__=="__main__":
 	csv_outname='CTvalues_%d.csv' % data_size
 
 	#CT画像に変換して保存したいときに'True'をセット
-	convert='True'
+	convert='False'
 
 	for i in range(data_size):
 		i=i+1
-		rawpath='./Recon_10000/FBP_virtual_projection_512x512_gammex%d.raw' % i
+		rawpath='./Recon_{0}/FBP_virtual_projection_512x512_gammex{1}.raw'.format(data_size,i)
 		
 		f,fd=open_CTimages(rawpath,height,width)
 		mu_water,ctvalues14=main()
