@@ -11,4 +11,12 @@ Recon_{data_size}のディレクトリに再構成画像を保存しておく
 Gammexファントムの中心部のピクセルを取得し、SNRを計算する  
 Recon_{data_size}のディレクトリに再構成画像を保存しておく
 計算されたSNRはCSVファイルにまとめられ、プロットされた図とともに出力される  
-`$python SNR.py`  
+`$python SNR.py`
+
+## CT画像のCT値と電子密度の関係を図に出力  
+デジタルGammexファントムと実際のGammexファントムの電子密度とCT値の関係(CT to Density curve)を図に保存する  
+`$CTtoDensity.py`   
+
+## RMSEなどの評価指標を図に出力  
+RMSEやMAEなどのテキストファイルに保存された評価指標の数値を図に保存する  
+`$evaluation.py`
