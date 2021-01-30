@@ -22,10 +22,7 @@ def evaluation_value_fig(fig_name,title,data):
 	plt.close()
 
 
-if __name__=="__main__":
-	"""	
+if __name__=="__main__":	
 	#rmseの図示を行う
 	rmse=np.loadtxt('../DNN/rmse/rmse_10000.csv')
-	evaluation_value_fig('rmse_10000.png','rmse',rmse)	
-	"""
-	
+	evaluation_value_fig('rmse_10000.png','rmse',rmse)
