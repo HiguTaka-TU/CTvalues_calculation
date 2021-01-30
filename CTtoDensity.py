@@ -153,36 +153,15 @@ def feature_fig(csv_name,i):
 	plt.savefig(filename)
 	plt.close()
 
+if __name__=="__main__":
+	density,density_actual=definition_density()
+	fig = plt.figure()
+	graph_setting()
+	CTvalues=np.loadtxt('CTvalues_csv/Check_BHC/CTvalues_BHC.csv',delimiter=',')	
+	plt.plot(CTvalues[0],density,marker='^',label='BHC')
+	plt.plot(CTvalues[1],density,marker='^',label='NO_BHC')
 
-density,density_actual=definition_density()
-fig = plt.figure()
-graph_setting()
-CTvalues=np.loadtxt('CTvalues_csv/Check_BHC/CTvalues_BHC.csv',delimiter=',')	
-plt.plot(CTvalues[0],density,marker='^',label='BHC')
-plt.plot(CTvalues[1],density,marker='^',label='NO_BHC')
-
-filename='BHC_fig.png'
-plt.legend(loc='lower right')        
-plt.savefig(filename)
-plt.close()
-
-"""
-density,density_actual=definition_density()
-
-#B3F,QQ,New,kV_120=actual_CTvalues()
-#interpolation()
-
-fig = plt.figure()
-density,density_actual=definition_density()
-graph_setting()
-CTtoDensity_fig('CTvalues_csv/dataset/CTvalues_10000.csv',density)
-CTvalues_interpolation=np.loadtxt('Interpolation.csv',delimiter=',')
-interpolation_fig(CTvalues_interpolation,density)
-#B3F,QQ,New,kV_120=actual_CTvalues()
-#CTtoDensity_actual_fig(B3F,QQ,New,kV_120,density_actual)
-plt.title('CTtoDensity Curve')
-plt.legend(loc='lower right')        
-filename='./CTtoDensity.png'
-plt.savefig(filename)
-plt.close()
-"""
+	filename='BHC_fig.png'
+	plt.legend(loc='lower right')        
+	plt.savefig(filename)
+	plt.close()
